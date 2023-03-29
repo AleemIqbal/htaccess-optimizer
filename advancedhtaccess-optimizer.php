@@ -105,23 +105,22 @@ function advancedhtaccessoptimizer_create_wp_uploads_htaccess() {
 
 add_action('init', 'advancedhtaccessoptimizer_create_wp_uploads_htaccess');
 
-if (is_ssl()) {
 function advancedhtaccessoptimizer_replace_http_with_https($content) {
-$disable_mixed_content_option = get_option('advancedhtaccessoptimizer_disable_mixed_content');
-$disable_mixed_content_option = filter_var($disable_mixed_content_option, FILTER_VALIDATE_BOOLEAN);
-if ($disable_mixed_content_option) {
-  $content = str_replace("http://", "https://", $content);
+    $disable_mixed_content_option = get_option('advancedhtaccessoptimizer_disable_mixed_content');
+    $disable_mixed_content_option = filter_var($disable_mixed_content_option, FILTER_VALIDATE_BOOLEAN);
+    if ($disable_mixed_content_option) {
+        $content = str_replace("http://", "https://", $content);
+    }
+    return $content;
 }
 
-return $content;
-}
-
-add_filter('the_content', 'advancedhtaccessoptimizer_replace_http_with_https');
-add_filter('content_url', 'advancedhtaccessoptimizer_replace_http_with_https');
-add_filter('plugins_url', 'advancedhtaccessoptimizer_replace_http_with_https');
-add_filter('site_url', 'advancedhtaccessoptimizer_replace_http_with_https');
-add_filter('stylesheet_directory_uri', 'advancedhtaccessoptimizer_replace_http_with_https');
-add_filter('template_directory_uri', 'advancedhtaccessoptimizer_replace_http_with_https');
+if (is_ssl()) {
+    add_filter('the_content', 'advancedhtaccessoptimizer_replace_http_with_https');
+    add_filter('content_url', 'advancedhtaccessoptimizer_replace_http_with_https');
+    add_filter('plugins_url', 'advancedhtaccessoptimizer_replace_http_with_https');
+    add_filter('site_url', 'advancedhtaccessoptimizer_replace_http_with_https');
+    add_filter('stylesheet_directory_uri', 'advancedhtaccessoptimizer_replace_http_with_https');
+    add_filter('template_directory_uri', 'advancedhtaccessoptimizer_replace_http_with_https');
 }
 
 function advancedhtaccessoptimizer_custom_login_error_messages() {
